@@ -15,11 +15,12 @@ health_care_facilities_geo <- geojson_sf("data/health-care-facilities-primary-se
          cce_quantity      = replace_na(cce_quantity, "0"),
          cce_available     = replace_na(cce_available,"0"),
          functional_status = replace_na(functional_status, "Unknown"),
-         accessibility = replace_na(accessibility, "Unknown")) |> 
+         accessibility = replace_na(accessibility, "Inaccessible")) |> 
+  mutate(accessibility = ifelse(accessibility == "Inaccessible", 0, 1)) |> 
   select(-c(alternate_name, global_id,contact_name,contact_phone,
             cce_lastupdated,ward_code,ward_name,source,lga_code,state_code))
 
-write_rds(health_care_facilities_geo, "health_care_facilities_geo.rds")
+write_rds(health_care_facilities_geo, "data/health_care_facilities_geo.rds")
 
 health_care_facilities_geo |> 
   filter(cce_quantity>0)
