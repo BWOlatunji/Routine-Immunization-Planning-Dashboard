@@ -47,11 +47,16 @@ sidebar_acc <- accordion(
 )
 
 
+PRIMARY <- "#0675DD"
 
 ui <- page_navbar(
-    theme = bs_theme(
-        version = 5
-    ),
+  tags$head(
+    tags$link(rel = "stylesheet", type = "text/css", href = "style.css")
+  ),
+  theme = bs_theme(
+    preset = "shiny",
+    "primary" = PRIMARY
+  ),
     lang = "en",
     title = tags$span(
         tags$img(
@@ -61,7 +66,7 @@ ui <- page_navbar(
             class = "me-3",
             alt = "Nigeria Flag logo"
         ),
-        "Routine Immunization Planning in Nigeria Dashboard"
+        "Routine Immunization Dashboard"
     ),
     sidebar = sidebar(width = 275, sidebar_acc),
     nav_spacer(),
@@ -69,12 +74,22 @@ ui <- page_navbar(
         "RI overview",
         uiOutput("value_boxes"),
         layout_columns(
-            #flights_card, avg_delay_by_category
+          div(
+            class = "panel", 
+            div(
+              class = "panel-header",
+              h4("Hospitals with Cold Chain Equipment")
+            ),
+            div(
+              class = "panel-body",
+              leafletOutput(outputId = "map_plot")
+            )
+          )
         ),
         #delay_dist
     ),
     nav_panel(
-        "Trip Plan",
+        "Trip Plan"#,
         # card(
         #     card_header("Flight data"),
         #     DT::dataTableOutput("export")

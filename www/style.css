@@ -1,0 +1,15 @@
+
+body{
+  color:black;
+}
+
+span {
+  background-color: white;
+  color: green;
+}
+.nav-link{
+  color: black;
+  background-color:green;
+}
+
+.container-fluid{background-color: white; color:black;}
